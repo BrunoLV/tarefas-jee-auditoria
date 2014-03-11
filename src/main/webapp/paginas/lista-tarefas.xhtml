@@ -1,0 +1,99 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+<ui:composition template="/template/layout.xhtml">
+	<ui:define name="content">
+
+		<h:form>
+
+			<rich:dataTable var="tarefa" value="#{TarefaBean.tarefas}">
+				<f:facet name="header">
+					<rich:columnGroup>
+						<rich:column>
+							<h:outputText value="#{recurso['header.id']}" />
+						</rich:column>
+						<rich:column>
+							<h:outputText value="#{recurso['header.numeroDemanda']}" />
+						</rich:column>
+						<rich:column>
+							<h:outputText value="#{recurso['header.titulo']}" />
+						</rich:column>
+						<rich:column>
+							<h:outputText value="#{recurso['header.areaSolicitante']}" />
+						</rich:column>
+						<rich:column>
+							<h:outputText value="#{recurso['header.prioridade']}" />
+						</rich:column>
+						<rich:column>
+							<h:outputText value="#{recurso['header.status']}" />
+						</rich:column>
+						<rich:column>
+							<h:outputText value="#{recurso['header.inicio']}" />
+						</rich:column>
+						<rich:column>
+							<h:outputText value="#{recurso['header.finalPlanejado']}" />
+						</rich:column>
+						<rich:column>
+							<h:outputText value="#{recurso['header.finalEfetivo']}" />
+						</rich:column>
+						<rich:column>
+							<h:outputText value="#{recurso['header.totalHoras']}" />
+						</rich:column>
+						<rich:column></rich:column>
+					</rich:columnGroup>
+				</f:facet>
+				<rich:column>
+					<h:outputText value="#{tarefa.id}" />
+				</rich:column>
+				<rich:column>
+					<h:outputText value="#{tarefa.numeroDemanda}" />
+				</rich:column>
+				<rich:column>
+					<h:outputText value="#{tarefa.titulo}" />
+				</rich:column>
+				<rich:column>
+					<h:outputText value="#{tarefa.areaSolicitante}" />
+				</rich:column>
+				<rich:column>
+					<h:outputText value="#{tarefa.prioridade}" />
+				</rich:column>
+				<rich:column>
+					<h:outputText value="#{tarefa.status}" />
+				</rich:column>
+				<rich:column>
+					<h:outputFormat value="#{tarefa.inicio}">
+						<f:convertDateTime pattern="dd/MM/yyyy" />
+					</h:outputFormat>
+				</rich:column>
+				<rich:column>
+					<h:outputFormat value="#{tarefa.finalPlanejado}">
+						<f:convertDateTime pattern="dd/MM/yyyy" />
+					</h:outputFormat>
+				</rich:column>
+				<rich:column>
+					<h:outputFormat value="#{tarefa.finalEfetivo}" rendered="#{tarefa.finalEfetivo ne null}">
+						<f:convertDateTime pattern="dd/MM/yyyy" />
+					</h:outputFormat>
+				</rich:column>
+				<rich:column>
+					<h:outputText value="#{tarefa.totalHoras}" />
+				</rich:column>
+				<rich:column>
+					<h:commandLink id="visualizarButton" action="#{TarefaBean.mostrarRevisoes(tarefa.id)}">
+						<h:graphicImage value="/imagens/lupa.png" />
+					</h:commandLink>
+					<rich:tooltip value="#{recurso['link.revisoes']}" for="visualizarButton" />
+				</rich:column>
+			</rich:dataTable>
+
+		</h:form>
+
+	</ui:define>
+</ui:composition>
+</html>

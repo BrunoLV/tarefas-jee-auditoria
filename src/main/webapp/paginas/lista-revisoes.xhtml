@@ -1,0 +1,119 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+<ui:composition template="/template/layout.xhtml">
+	<ui:define name="content">
+
+		<h:form>
+			<h:link id="linkVoltar" outcome="/paginas/lista-tarefas.xhtml?faces-redirect=true">
+				<h:graphicImage value="/imagens/back.png" />
+			</h:link>
+			<rich:tooltip value="#{recurso['link.voltarTarefas']}" for="linkVoltar" />
+			
+			<h:panelGrid columns="1">
+
+				<a4j:outputPanel id="panel">
+					<a4j:repeat value="#{TarefaBean.auditorias}" var="auditoria" id="repeat">
+						<rich:panel>
+							<f:facet name="header">
+								<h:outputText value="#{recurso['label.codigoRevisao']}" />
+								<h:outputText value="#{auditoria.revisao.codigoRevisao}" /> |
+								<h:outputText value="#{recurso['label.dataCriacao']}" />
+								<h:outputText value="#{auditoria.revisao.timestamp}" /> |
+								<h:outputText value="#{recurso['label.autor']}" />
+								<h:outputText value="#{auditoria.revisao.autor}" />
+							</f:facet>
+							<h:panelGrid columns="2">
+								<h:outputText value="#{recurso['label.tipoRevisao']}" style="font-weight:bold" />
+								<h:outputText value="#{auditoria.tipoRevisao}" />
+							</h:panelGrid>
+							<rich:dataTable value="#{auditoria.tarefa}" var="tarefa">
+								<f:facet name="header">
+									<rich:columnGroup>
+										<rich:column>
+											<h:outputText value="#{recurso['header.id']}" />
+										</rich:column>
+										<rich:column>
+											<h:outputText value="#{recurso['header.numeroDemanda']}" />
+										</rich:column>
+										<rich:column>
+											<h:outputText value="#{recurso['header.titulo']}" />
+										</rich:column>
+										<rich:column>
+											<h:outputText value="#{recurso['header.areaSolicitante']}" />
+										</rich:column>
+										<rich:column>
+											<h:outputText value="#{recurso['header.prioridade']}" />
+										</rich:column>
+										<rich:column>
+											<h:outputText value="#{recurso['header.status']}" />
+										</rich:column>
+										<rich:column>
+											<h:outputText value="#{recurso['header.inicio']}" />
+										</rich:column>
+										<rich:column>
+											<h:outputText value="#{recurso['header.finalPlanejado']}" />
+										</rich:column>
+										<rich:column>
+											<h:outputText value="#{recurso['header.finalEfetivo']}" />
+										</rich:column>
+										<rich:column>
+											<h:outputText value="#{recurso['header.totalHoras']}" />
+										</rich:column>
+									</rich:columnGroup>
+								</f:facet>
+								<rich:column>
+									<h:outputText value="#{tarefa.id}" />
+								</rich:column>
+								<rich:column>
+									<h:outputText value="#{tarefa.numeroDemanda}" />
+								</rich:column>
+								<rich:column>
+									<h:outputText value="#{tarefa.titulo}" />
+								</rich:column>
+								<rich:column>
+									<h:outputText value="#{tarefa.areaSolicitante}" />
+								</rich:column>
+								<rich:column>
+									<h:outputText value="#{tarefa.prioridade}" />
+								</rich:column>
+								<rich:column>
+									<h:outputText value="#{tarefa.status}" />
+								</rich:column>
+								<rich:column>
+									<h:outputFormat value="#{tarefa.inicio}">
+										<f:convertDateTime pattern="dd/MM/yyyy" />
+									</h:outputFormat>
+								</rich:column>
+								<rich:column>
+									<h:outputFormat value="#{tarefa.finalPlanejado}">
+										<f:convertDateTime pattern="dd/MM/yyyy" />
+									</h:outputFormat>
+								</rich:column>
+								<rich:column>
+									<h:outputFormat value="#{tarefa.finalEfetivo}" rendered="#{tarefa.finalEfetivo ne null}">
+										<f:convertDateTime pattern="dd/MM/yyyy" />
+									</h:outputFormat>
+								</rich:column>
+								<rich:column>
+									<h:outputText value="#{tarefa.totalHoras}" />
+								</rich:column>
+							</rich:dataTable>
+						</rich:panel>
+						<br/>
+					</a4j:repeat>
+				</a4j:outputPanel>
+
+			</h:panelGrid>
+
+		</h:form>
+
+	</ui:define>
+</ui:composition>
+</html>
